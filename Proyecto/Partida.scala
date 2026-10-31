@@ -1,12 +1,12 @@
 abstract class Partida(
-    val idPartida: String,
+    val idPartida: Int,
     val equipo1: Equipo,
     val equipo2: Equipo,
-    val estado: Estado
+    val estado: EstadoPartida
 ) {
     def resumen(): String
 
-    def actualizarEstadoPartida(estadoNuevo: Estado): Partida
+    def actualizarEstadoPartida(estadoNuevo: EstadoPartida): Partida
 
     def ganador: Option[Equipo] = 
         estado match
