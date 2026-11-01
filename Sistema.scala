@@ -51,7 +51,7 @@ object Sistema {
 
   private def validarInscripcion(torneo: Torneo, equipo: Equipo): Resultado[Torneo] =
     torneo.estado match
-      case Pendiente =>
+      case TorneoPendiente =>
         if torneo.equipos.filter(e => e.idEquipo == equipo.idEquipo).isEmpty then
           Validaciones.validarEquipos(torneo.modalidad, List(equipo)).mapear(_ => torneo)
         else Fallo(s"El equipo ${equipo.nombreEquipo} ya está inscrito en el torneo")
@@ -72,7 +72,7 @@ object Sistema {
     buscarTorneo(estado, idTorneo).encadenar(torneo =>
       if !transicionValida(torneo.estado, nuevoEstado) then
         Fallo(s"No se puede pasar de '${torneo.estado.descripcion()}' a '${nuevoEstado.descripcion()}'")
-      else if nuevoEstado == EnCurso && torneo.equipos.length < 2 then
+      else if nuevoEstado == TorneoEnCurso && torneo.equipos.length < 2 then
         Fallo("Se necesitan al menos 2 equipos para iniciar el torneo")
       else
         Exito(reemplazarTorneo(estado, torneo.actualizarEstadoTorneo(nuevoEstado))))
