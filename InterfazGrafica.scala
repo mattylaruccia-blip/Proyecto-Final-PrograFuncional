@@ -43,7 +43,7 @@ object Tema {
   val Tarjeta    = new Color(0x171E36)
   val Borde      = new Color(0x2B3560)
   val Seleccion  = new Color(0x27346A)
-  val Texto      = new Color(0xE9EDFB)
+  val Texto      = new Color(0x85A0FF)
   val TextoSuave = new Color(0x8E99C0)
   val Cian       = new Color(0x22D3EE)
   val Violeta    = new Color(0x8B5CF6)
