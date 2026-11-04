@@ -1,5 +1,5 @@
 case class TorneoSistemaDePuntos(
-  val pesoClasificacion: Int,   // antes: pesoClasificaion
+  val pesoClasificacion: Int,
   val puntajePorBaja: Int,
   override val idTorneo: Int,
   override val nombreTorneo: String,
@@ -13,13 +13,9 @@ case class TorneoSistemaDePuntos(
   def actualizarEstadoTorneo(estadoNuevo: EstadoTorneo): Torneo = copy(estado = estadoNuevo)
   def conEquipos(nuevosEquipos: List[Equipo]): Torneo = copy(equipos = nuevosEquipos)
 
-  // Puntos de un equipo en una ronda:
-  //   (equipos - posicion + 1) * pesoClasificacion  +  bajas * puntajePorBaja
   def puntosPorDesempeno(desempeno: DesempenoEquipo): Int =
     (equipos.length - desempeno.posicion + 1) * pesoClasificacion + desempeno.bajas * puntajePorBaja
 
-  // Una ronda es válida si cada equipo del torneo aparece una sola vez,
-  // las posiciones van de 1 a n sin repetirse y las bajas no son negativas.
   def validarRonda(ronda: List[DesempenoEquipo]): Resultado[List[DesempenoEquipo]] = {
     val equiposNoUnicos = equipos.filter(e =>
       ronda.filter(d => d.equipo.idEquipo == e.idEquipo).length != 1)
@@ -41,7 +37,6 @@ case class TorneoSistemaDePuntos(
     else Exito(ronda)
   }
 
-  // Suma los puntos de todas las rondas y devuelve un ResultadoEquipo por equipo.
   def calcularResultados(rondas: List[List[DesempenoEquipo]]): Resultado[List[ResultadoEquipo]] = {
     val desempenos = rondas.flatMap(ronda => ronda)
     val resultados = equipos.map(equipo =>

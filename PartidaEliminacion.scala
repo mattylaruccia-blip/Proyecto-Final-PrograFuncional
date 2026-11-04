@@ -13,6 +13,4 @@ case class PartidaEliminacion(
     }
 
     def actualizarEstadoPartida(estadoNuevo: EstadoPartida): Partida = copy(estado = estadoNuevo)
-
-    // def definirGanador(equipoGanador: Equipo): Equipo 
 }

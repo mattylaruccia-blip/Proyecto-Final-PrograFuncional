@@ -1,6 +1,5 @@
 object main {
 
-  // Convierte un Resultado en texto (lo que más adelante hará la interfaz).
   def mostrar[A](resultado: Resultado[A], paraExito: A => String): String = resultado match
     case Exito(valor)  => paraExito(valor)
     case Fallo(motivo) => s"ERROR: $motivo"
@@ -21,7 +20,6 @@ object main {
     val inicial: Resultado[EstadoSistema] = Exito(Sistema.estadoInicial)
     val equipos = List(equipo1, equipo2, equipo3, equipo4, equipoGrande)
 
-    // Registro de equipos con foldLeft: se detiene en el primer error.
     val conEquipos = equipos.foldLeft(inicial)((acc, equipo) =>
       acc.encadenar(e => Sistema.registrarEquipo(e, equipo)))
 
@@ -29,7 +27,6 @@ object main {
       .encadenar(e => Sistema.registrarVideojuego(e, cod))
       .encadenar(e => Sistema.agregarTorneo(e, torneo))
 
-    // Inscripción de los 4 equipos individuales
     val inscrito = List(1, 2, 3, 4).foldLeft(preparado)((acc, idEquipo) =>
       acc.encadenar(e => Sistema.inscribirEquipo(e, 1, idEquipo)))
 

@@ -1,6 +1,5 @@
 object Validaciones {
 
-  // Verifica que todos los equipos cumplan la modalidad del torneo.
   def validarEquipos(modalidad: ModalidadTorneo, equipos: List[Equipo]): Resultado[List[Equipo]] = {
     val invalidos = equipos.filter(equipo => !modalidad.admiteEquipo(equipo))
     if invalidos.isEmpty then Exito(equipos)
